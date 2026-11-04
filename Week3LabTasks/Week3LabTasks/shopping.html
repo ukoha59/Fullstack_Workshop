@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+</head>
+<body>
+    <div id="shopping">
+        <h1>Groceries</h1>
+        <h2>Available Items</h2>
+
+        <h2>Shopping List</h2>
+        <ul>
+            <li v-for="(item,index) in shoppingList">
+                {{item}} <button v-on:click="removeItem(index)">Remove</button>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+
+    <script type="module">
+        const {createApp} = Vue
+        const myApp = createApp({
+            data(){
+                return{
+                    groceries:[
+                        "Bananas","Apples","Tomato","Cheese","Strawberries","Crisps", "Chcoloate", "Milk","Bread","Eggs"
+                    ],
+                    shoppingList:["Apples", "Bread", "Cheese"],
+                }
+            },
+            methods:{
+                removeItem(i){
+                    // remove 1 item from this.shoppingList at position i
+                    this.shoppingList.splice(i, 1);
+                },
+            }
+        })
+        myApp.mount('#shopping')
+    </script>
+</body>
+</html>

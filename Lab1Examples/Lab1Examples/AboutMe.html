@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <script type = "module">
+        const {createApp} = Vue
+        const myApp = createApp({
+            data(){
+                return {
+                    message: "About Me",
+                    name: "Mark",
+                    fave_color: "orange",
+                    age: 41,
+                    animal: {
+                        name:"koala",
+                        image:"images/koalaSmall.jpg",
+                        alt: "A cuddly koala"
+                    }
+                }
+            }
+        })
+        myApp.mount('#app')
+    </script>
+
+
+<div id= 'app'>
+    <h1 v-text = "message"></h1>
+
+    <h2 v-text = "name"></h2>
+    <p>  I am {{age}} years old. My favourite colour is <span v-bind:style = "{color: fave_color}">{{fave_color}} </span>. </p>
+    <p> My favourite animal is the {{animal.name}}. Here is a picture:</p>
+
+    <img v-bind:src="animal.image" v-bind:alt="animal.alt" width =300>
+</div>
+    
+</body>
+</html>

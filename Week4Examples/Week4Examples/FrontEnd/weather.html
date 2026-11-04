@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="weather">
+        <h1> Today's Weather in {{city}}</h1>
+
+        <p>Change city:
+            <select v-model="city">
+                <option v-for="c in cities">{{c}}</option>
+            </select>
+             <!-- <button v-on:click="fetchData()">Update</button> -->
+        </p>
+       
+
+        <p><b>Temperature:</b> {{weather.temperature}}</p>
+        <p><b>Wind:</b> {{weather.wind}}</p>
+        <span v-text="weather.description"></span>
+
+        <h2>Forecast:</h2>
+        <ul>
+            <li v-for="item in weather.forecast">
+                {{item.day}}: Temp {{item.temperature}}, Wind {{item.wind}}
+            </li>
+        </ul>
+    </div>
+
+    <script type="module">
+        const {createApp} = Vue
+        const myApp = createApp({
+            data(){
+                return{
+                    city:"London",
+                    weather:{
+                        temperature:"",
+                        wind:"",
+                        description:"",
+                        forecast:[
+                        ]
+                    },
+                    cities:["London", "Dubai", "Mauritius"]
+                }
+            },
+
+            created(){
+               this.fetchData()
+            },
+
+            watch:{
+                city: "fetchData"
+            },
+
+            methods:{
+                async fetchData(){
+                    const url = "https://goweather.xyz/v2/weather/" + this.city;
+                    let response = await (fetch (url));
+                    this.weather = await response.json();
+                    
+                },
+            }
+
+        })
+        myApp.mount("#weather")
+    </script>
+    
+</body>
+</html>

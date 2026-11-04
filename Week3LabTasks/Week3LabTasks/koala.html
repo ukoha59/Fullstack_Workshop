@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    
+
+<div id= 'app'>
+
+    <p>First Name: <input v-model="firstName"></p>
+
+    <p>Full Name: {{fullName}}</p>
+
+    <img v-bind:src="animal.image" v-bind:alt="animal.alt" v-bind:width="animal.width">
+</div>
+
+    <script type = "module">
+        const {createApp} = Vue
+        const myApp = createApp({
+            data(){
+                return {
+                    firstName: "Mark",
+                    lastName: "Jones",
+                    animal: {
+                        name:"koala",
+                        image:"images/koalaSmall.jpg",
+                        alt: "A cuddly koala",
+                        width:300,
+                    }
+                }
+            },
+            computed:{
+                fullName:function(){
+                    return this.firstName + " " + this.lastName;
+                }
+            }
+        })
+        myApp.mount('#app')
+    </script>
+
+    
+</body>
+</html>

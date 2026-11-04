@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+    <div id="app">
+       
+        Here is a message from our sever: {{serverMessage}}
+
+        <h2>Names</h2>
+        <ul>
+            <li  v-for="name in names">
+                {{name.firstName}}  {{name.lastName}}
+            </li>
+        </ul>
+
+        <h2>Add a name:</h2>
+        <p>First Name: <input type="text" v-model="newEntry.firstName"> </p>
+        <p>Last Name: <input type="text" v-model="newEntry.lastName"> </p>
+
+        
+        <img src="http://localhost:3000/images/koala.jpg" width = 300>
+    </div>
+
+    <script type="module">
+
+        const BASE_URL = "http://localhost:3000"
+        const {createApp} = Vue
+        const myApp = createApp({
+            data(){
+                return{
+                    serverMessage:"",
+                    names: [],
+                    newEntry:{
+                        firstName:"",
+                        lastName:""
+                    }
+                }
+            },
+            created(){
+                this.fetchNames();
+                this.fetchMessage();
+            },
+            methods:{
+                async fetchNames(){
+                    const url = BASE_URL  + "/names";
+                    let response = await (fetch (url));
+                    this.names = await response.json();
+                },
+
+                
+                async fetchMessage(){
+                    const url = BASE_URL  + "/message";
+                    let response = await (fetch (url));
+                    this.serverMessage = await response.json();
+                },
+
+            }
+        })
+        myApp.mount('#app')
+    </script>
+    
+</body>
+</html>
